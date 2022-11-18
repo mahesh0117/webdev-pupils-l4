@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 const todo = require("../todo");
 const { all, add, markAsComplete, overdue, dueToday, dueLater } = todo();
-const today =new Date().toLocaleDateString("en-CA");
+const today = new Date().toLocaleDateString("en-CA");
 describe("TODO test suite", () => {
   beforeAll(() => {
     add({
-      title: "Charge Device",
+      title: "Visit school",
       dueDate: today,
       completed: true,
     });
@@ -13,7 +13,7 @@ describe("TODO test suite", () => {
   test("Add task", () => {
     let lengthBefore = all.length;
     add({
-      title: "Hit Gym",
+      title: "Cook food",
       dueDate: today,
       completed: false,
     });
@@ -25,38 +25,36 @@ describe("TODO test suite", () => {
     expect(all[0].completed).toBe(true);
   });
   test("Over due tasks", () => {
-    const overdueItems=overdue();
+    const overdueItems = overdue();
     var prev_date = new Date();
     prev_date.setDate(prev_date.getDate() - 1);
-    let yesterday=prev_date.toLocaleDateString("en-CA");
+    let yesterday = prev_date.toLocaleDateString("en-CA");
     add({
-      title: "Update System",
+      title: "Upload images",
       dueDate: yesterday,
       completed: false,
     });
-    expect(overdue().length).toBe(overdueItems.length +1);
-
+    expect(overdue().length).toBe(overdueItems.length + 1);
   });
   test("Due today tasks", () => {
-    const todayItems=dueToday();
+    const todayItems = dueToday();
     add({
-      title: "Clean your laptop",
+      title: "Delete cloud storage",
       dueDate: today,
       completed: false,
     });
-    expect(dueToday().length).toBe(todayItems.length +1);
-
+    expect(dueToday().length).toBe(todayItems.length + 1);
   });
   test("Due later tasks", () => {
-    const duelaterItems=dueLater();
-    var next_date=new Date();
+    const duelaterItems = dueLater();
+    var next_date = new Date();
     next_date.setDate(next_date.getDate() + 1);
-    let tomorrow=next_date.toLocaleDateString("en-CA");
+    let tomorrow = next_date.toLocaleDateString("en-CA");
     add({
-      title: "Pay current bill",
+      title: "Make notes",
       dueDate: tomorrow,
       completed: false,
     });
-    expect(dueLater().length).toBe(duelaterItems.length +1);
+    expect(dueLater().length).toBe(duelaterItems.length + 1);
   });
 });
